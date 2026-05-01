@@ -20,9 +20,9 @@ export const IconButton = ({
   hexpand = false,
   halign = Gtk.Align.CENTER,
 }: IconButtonProps) => (
-  <GtkButton 
-    onClicked={onClick} 
-    cssClasses={cssClasses} 
+  <GtkButton
+    onClicked={onClick}
+    cssClasses={cssClasses}
     sensitive={sensitive}
     hexpand={hexpand}
     halign={halign}

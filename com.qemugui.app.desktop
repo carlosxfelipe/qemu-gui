@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=QEMU GUI
+Exec=qemu-gui
+Icon=qemu-gui
+Type=Application
+Categories=System;Utility;
+Comment=Gerenciador de Máquinas Virtuais QEMU
+Terminal=false

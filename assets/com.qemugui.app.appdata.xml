@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>com.qemugui.app</id>
+  <metadata_license>MIT</metadata_license>
+  <project_license>MIT</project_license>
+
+  <name>QEMU GUI</name>
+  <summary>Uma interface moderna para rodar máquinas virtuais QEMU</summary>
+
+  <description>
+    <p>
+      QEMU GUI é uma ferramenta simples e eficiente para gerenciar e lançar máquinas virtuais
+      usando o motor QEMU. Configure memória, núcleos de CPU e selecione imagens ISO
+      com facilidade.
+    </p>
+  </description>
+
+  <launchable type="desktop-id">com.qemugui.app.desktop</launchable>
+
+  <url type="homepage">https://github.com/carlosxfelipe/qemu-gui</url>
+  <url type="bugtracker">https://github.com/carlosxfelipe/qemu-gui/issues</url>
+
+  <developer id="com.carlosxfelipe">
+    <name>Carlos Felipe</name>
+  </developer>
+
+  <screenshots>
+    <screenshot type="default">
+      <caption>Janela principal do QEMU GUI</caption>
+      <image>https://raw.githubusercontent.com/carlosxfelipe/qemu-gui/main/assets/screenshot-main.png</image>
+    </screenshot>
+  </screenshots>
+
+  <releases>
+    <release version="0.0.1" date="2026-05-01">
+      <description>
+        <p>Versão inicial com suporte a seleção de ISO e configuração de recursos.</p>
+      </description>
+    </release>
+  </releases>
+
+  <content_rating type="oars-1.1"/>
+</component>
