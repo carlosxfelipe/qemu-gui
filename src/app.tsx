@@ -4,11 +4,13 @@ import {
   GtkApplicationWindow, 
   GtkBox, 
   GtkButton, 
+  GtkImage,
   GtkLabel, 
   quit 
 } from "@gtkx/react";
 import { useState, useEffect, useRef } from "react";
 import { checkKvmSupport, pickIso, runQemu, QemuConfig } from "./systemInterop.js";
+import { IconButton } from "./IconButton.js";
 
 export const App = () => {
   const [isoPath, setIsoPath] = useState<string>("");
@@ -92,64 +94,94 @@ export const App = () => {
         </GtkBox>
 
         {/* ISO Selection Card */}
-        <GtkBox orientation={Gtk.Orientation.VERTICAL} spacing={10} cssClasses={["card"]}>
-          <GtkLabel label="ISO Image" cssClasses={["bold", "body"]} halign={Gtk.Align.START} />
-          <GtkBox orientation={Gtk.Orientation.HORIZONTAL} spacing={10}>
-            <GtkLabel 
-              label={isoPath || "No ISO selected"} 
-              hexpand 
-              halign={Gtk.Align.START}
-              cssClasses={["iso-path-label", "caption"]}
-              ellipsize={Pango.EllipsizeMode.END}
-            />
-            <GtkButton 
-              label="Browse..." 
-              onClicked={handlePickIso}
-              cssClasses={["pill"]}
-            />
+        <GtkBox orientation={Gtk.Orientation.VERTICAL} cssClasses={["card"]}>
+          <GtkBox 
+            orientation={Gtk.Orientation.VERTICAL} 
+            spacing={10} 
+            marginTop={16} 
+            marginBottom={16} 
+            marginStart={16} 
+            marginEnd={16}
+          >
+            <GtkBox orientation={Gtk.Orientation.HORIZONTAL} spacing={8}>
+              <GtkImage iconName="media-optical-symbolic" iconSize={Gtk.IconSize.NORMAL} />
+              <GtkLabel label="ISO Image" cssClasses={["bold", "body"]} halign={Gtk.Align.START} />
+            </GtkBox>
+            <GtkBox orientation={Gtk.Orientation.HORIZONTAL} spacing={10}>
+              <GtkLabel 
+                label={isoPath || "No ISO selected"} 
+                hexpand 
+                halign={Gtk.Align.START}
+                cssClasses={["iso-path-label", "caption"]}
+                ellipsize={Pango.EllipsizeMode.END}
+              />
+              <IconButton 
+                iconName="folder-open-symbolic"
+                label="Browse..." 
+                onClick={handlePickIso}
+              />
+            </GtkBox>
           </GtkBox>
         </GtkBox>
 
         {/* Configuration Card */}
-        <GtkBox orientation={Gtk.Orientation.VERTICAL} spacing={16} cssClasses={["card"]} marginTop={10}>
-          <GtkLabel label="System Configuration" cssClasses={["bold", "body"]} halign={Gtk.Align.START} />
-          
-          {/* RAM Selection */}
-          <GtkBox orientation={Gtk.Orientation.HORIZONTAL} spacing={10}>
-            <GtkLabel label="Memory (RAM):" hexpand halign={Gtk.Align.START} />
-            <GtkBox orientation={Gtk.Orientation.HORIZONTAL} spacing={4}>
-              {["2G", "4G", "8G", "16G"].map(v => (
-                <GtkButton 
-                  key={v}
-                  label={v} 
-                  onClicked={() => setRam(v)}
-                  cssClasses={ram === v ? ["suggested-action", "pill"] : ["pill"]}
-                />
-              ))}
+        <GtkBox orientation={Gtk.Orientation.VERTICAL} cssClasses={["card"]} marginTop={10}>
+          <GtkBox 
+            orientation={Gtk.Orientation.VERTICAL} 
+            spacing={16} 
+            marginTop={16} 
+            marginBottom={16} 
+            marginStart={16} 
+            marginEnd={16}
+          >
+            <GtkBox orientation={Gtk.Orientation.HORIZONTAL} spacing={8}>
+              <GtkImage iconName="emblem-system-symbolic" iconSize={Gtk.IconSize.NORMAL} />
+              <GtkLabel label="System Configuration" cssClasses={["bold", "body"]} halign={Gtk.Align.START} />
             </GtkBox>
-          </GtkBox>
+            
+            {/* RAM Selection */}
+            <GtkBox orientation={Gtk.Orientation.HORIZONTAL} spacing={10}>
+              <GtkBox orientation={Gtk.Orientation.HORIZONTAL} spacing={8} hexpand>
+                <GtkImage iconName="media-flash-symbolic" iconSize={Gtk.IconSize.NORMAL} />
+                <GtkLabel label="Memory (RAM):" halign={Gtk.Align.START} />
+              </GtkBox>
+              <GtkBox orientation={Gtk.Orientation.HORIZONTAL} spacing={4}>
+                {["2G", "4G", "8G", "16G"].map(v => (
+                  <GtkButton 
+                    key={v}
+                    label={v} 
+                    onClicked={() => setRam(v)}
+                    cssClasses={ram === v ? ["suggested-action", "pill"] : ["pill"]}
+                  />
+                ))}
+              </GtkBox>
+            </GtkBox>
 
-          {/* Cores Selection */}
-          <GtkBox orientation={Gtk.Orientation.HORIZONTAL} spacing={10}>
-            <GtkLabel label="CPU Cores:" hexpand halign={Gtk.Align.START} />
-            <GtkBox orientation={Gtk.Orientation.HORIZONTAL} spacing={4}>
-              {[1, 2, 4, 8].map(v => (
-                <GtkButton 
-                  key={v}
-                  label={v.toString()} 
-                  onClicked={() => setCores(v)}
-                  cssClasses={cores === v ? ["suggested-action", "pill"] : ["pill"]}
-                />
-              ))}
+            {/* Cores Selection */}
+            <GtkBox orientation={Gtk.Orientation.HORIZONTAL} spacing={10}>
+              <GtkBox orientation={Gtk.Orientation.HORIZONTAL} spacing={8} hexpand>
+                <GtkImage iconName="cpu-symbolic" iconSize={Gtk.IconSize.NORMAL} />
+                <GtkLabel label="CPU Cores:" halign={Gtk.Align.START} />
+              </GtkBox>
+              <GtkBox orientation={Gtk.Orientation.HORIZONTAL} spacing={4}>
+                {[1, 2, 4, 8].map(v => (
+                  <GtkButton 
+                    key={v}
+                    label={v.toString()} 
+                    onClicked={() => setCores(v)}
+                    cssClasses={cores === v ? ["suggested-action", "pill"] : ["pill"]}
+                  />
+                ))}
+              </GtkBox>
             </GtkBox>
           </GtkBox>
         </GtkBox>
 
         {/* Run Button */}
-        <GtkButton 
+        <IconButton 
+          iconName="media-playback-start-symbolic"
           label={isRunning ? "Running..." : "Run Virtual Machine"} 
-          onClicked={handleRun}
-          marginTop={20}
+          onClick={handleRun}
           cssClasses={["suggested-action", "pill"]}
           sensitive={!isRunning && !!isoPath}
           halign={Gtk.Align.CENTER}
@@ -165,6 +197,13 @@ export const App = () => {
             wrap
           />
         </GtkBox>
+        
+        <GtkLabel
+          label="github.com/carlosxfelipe/qemu-gui"
+          cssClasses={["dim-label", "caption"]}
+          marginTop={16}
+          halign={Gtk.Align.CENTER}
+        />
       </GtkBox>
     </GtkApplicationWindow>
   );
