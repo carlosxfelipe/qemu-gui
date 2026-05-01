@@ -20,6 +20,7 @@
     },
     "devDependencies": {
         "@gtkx/cli": "^0.21.0",
+        "@types/node": "^22.19.17",
         "@types/react": "^19.2.14",
         "typescript": "^6.0.3",
         "vite": "^8.0.10"
