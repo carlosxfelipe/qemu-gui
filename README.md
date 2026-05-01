@@ -2,6 +2,8 @@
 
 Interface moderna para gerenciar e lançar máquinas virtuais QEMU. Permite configurar memória, núcleos de CPU e selecionar imagens ISO de forma simples.
 
+![Screenshot](assets/screenshot.png)
+
 ## Desenvolvimento
 
 Para rodar em modo de desenvolvimento:
